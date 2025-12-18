@@ -29,7 +29,7 @@ function createHeavyObject() {
     };
 }
 
-const lazy = LazyConstProxy(() => createHeavyObject());
+const lazy = LazyConstProxy(createHeavyObject);
 
 // The heavy object is created only when a property is accessed:
 console.log(lazy.value); // -> logs "creating heavy object", then "42"
@@ -37,15 +37,31 @@ lazy.increment();
 console.log(lazy.value); // -> "43"
 ```
 
-API is forwarded from the package entry ([src/index.ts](src/index.ts)) and implemented in [src/LazyConstProxy.ts](src/LazyConstProxy.ts). The handler type is declared in [src/types.ts](src/types.ts).
+Exemple with a class:
 
-## Build
+```ts
+import { LazyConstProxy } from 'ts-lazy-proxy';
 
-This project uses TypeScript. To build:
+class HeavyClass {
+    value: number;
 
-```sh
-npm run build
+    constructor() {
+        console.log('HeavyClass instantiated');
+        this.value = 100;
+    }
+
+    double() {
+        this.value *= 2;
+    }
+}
+
+const lazyInstance = LazyConstProxy(() => new HeavyClass());
+console.log(lazyInstance.value); // -> logs "HeavyClass instantiated", then "100"
+lazyInstance.double();
+console.log(lazyInstance.value); // -> "200"
 ```
+
+API is forwarded from the package entry ([src/index.ts](src/index.ts)) and implemented in [src/LazyConstProxy.ts](src/LazyConstProxy.ts). The handler type is declared in [src/types.ts](src/types.ts).
 
 ## License
 

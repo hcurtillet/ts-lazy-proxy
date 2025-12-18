@@ -1,0 +1,22 @@
+{
+    "name": "ts-lazy-proxy",
+    "version": "0.0.0-beta",
+    "description": "A lazy initialization proxy for constants",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "author": "Hugo Curtillet",
+    "type": "module",
+    "license": "MIT",
+    "scripts": {
+        "format": "prettier --write .",
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "@types/node": "25.0.3",
+        "prettier": "3.7.4",
+        "typescript": "5.9.3"
+    },
+    "exports": {
+        ".": "./dist/index.js"
+    }
+}
